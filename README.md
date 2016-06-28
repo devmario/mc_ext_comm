@@ -1,22 +1,22 @@
 # mc_ext_comm
 Minecraft extensional command. rcon, nodejs, nbt.
 
-## install
+### install
 ```
 git submodule init
 git submodule update
 npm install
 ```
 
-## config
-- minecraft server.properties
+### config
+minecraft server.properties
 ```
 enable-rcon=true
 rcon.port=25575
 rcon.password=PASSWORD
 ```
 
-## run
+### run
 ```
 node index.js
 ```
