@@ -16,7 +16,7 @@ var tk = "@";
 var comm = {};
 
 function execRcon(msg) {
-	try{console.log(execSync(`build/mcrcon -c -H 127.0.0.1 -P 25575 -p aq090909 \"${msg}\"`, {encoding:'utf8'}));}catch(err){}
+	try{console.log(execSync(`build/mcrcon -c -H 127.0.0.1 -P 25575 -p PASSWORD \"${msg}\"`, {encoding:'utf8'}));}catch(err){}
 }
 
 function execRconOutput(who, msg) {
