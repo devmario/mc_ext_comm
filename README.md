@@ -12,6 +12,10 @@ this node.js script page is for minecraft teleport more smart.
 - show another player's key list
 - teleport at saved another player's key
 
+## requirements
+- npm
+- gcc
+- node.js
 
 ## install
 ```
