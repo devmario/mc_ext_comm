@@ -20,3 +20,14 @@ rcon.password=PASSWORD
 ```
 node index.js
 ```
+### command
+```
+@list
+@list userName
+@save positionKey
+@go positionKey
+@go userName positionKey
+@?
+@help
+@delete positionKey
+```
