@@ -7,6 +7,8 @@ var jsonfile = require('jsonfile');
 var zlib = require("zlib");
 var NbtReader = require('node-nbt').NbtReader;
 
+require('dotenv').config();
+
 var lp = /\[([0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2})\]\s+\[([^\]]+)\]:\s+(.*?)$/i;
 var cp = /<([^>]+)>\s+(.*?)$/i;
 
@@ -16,7 +18,7 @@ var tk = "@";
 var comm = {};
 
 function execRcon(msg) {
-	try{console.log(execSync(`build/mcrcon -c -H 127.0.0.1 -P 25575 -p PASSWORD \"${msg}\"`, {encoding:'utf8'}));}catch(err){}
+	try{console.log(execSync(`build/mcrcon -c -H ${process.env.MCRCON_HOST} -P ${process.env.MCRCON_PORT} -p ${process.env.MCRCON_PASSWORD} \"${msg}\"`, {encoding:'utf8'}));}catch(err){}
 }
 
 function execRconOutput(who, msg) {
@@ -24,7 +26,7 @@ function execRconOutput(who, msg) {
 }
 
 function readPositionSync(name) {
-	var users = jsonfile.readFileSync("../25565/usercache.json");
+	var users = jsonfile.readFileSync(`${process.env.MC_PATH}/usercache.json`);
 	var uuid = "";
 	for(var i = 0, item; item = users[i]; i++) {
 		if(item.name == name) {
@@ -33,7 +35,7 @@ function readPositionSync(name) {
 		}
 	}
 	if(!uuid) return null;
-	var nbtFile = `../25565/world/playerdata/${uuid}.dat`;
+	var nbtFile = `${process.env.MC_PATH}/world/playerdata/${uuid}.dat`;
 	var data = fs.readFileSync(nbtFile);
 	var buf = zlib.gunzipSync(data);
 	var d = NbtReader.readTag(buf);

@@ -23,12 +23,14 @@ npm install
 minecraft server.properties
 ```
 enable-rcon=true
-rcon.port=25575
+rcon.port=PORT
 rcon.password=PASSWORD
 ```
-You need edit some code at index.js.
-- mcrcon command option
-- usercache.json filepath
+.env config
+MCRCON_HOST=RCON_IP
+MCRCON_PORT=RCON_PORT
+MCRCON_PASSWORD=RCON_PASSWORD
+MC_PATH=MINECRAFT_PATH
 
 ### run
 ```
