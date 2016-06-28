@@ -12,7 +12,7 @@ require('dotenv').config();
 var lp = /\[([0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2})\]\s+\[([^\]]+)\]:\s+(.*?)$/i;
 var cp = /<([^>]+)>\s+(.*?)$/i;
 
-var tail = new Tail("../25565/logs/latest.log");
+var tail = new Tail(`${process.env.MC_PATH}/logs/latest.log`);
 
 var tk = "@";
 var comm = {};
