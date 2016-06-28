@@ -26,11 +26,15 @@ enable-rcon=true
 rcon.port=25575
 rcon.password=PASSWORD
 ```
+You need edit some code at index.js.
+- mcrcon command option
+- usercache.json filepath
 
 ### run
 ```
 node index.js
 ```
+
 ### command
 ```
 @list
