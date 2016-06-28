@@ -1,3 +1,4 @@
+![alt logo](https://github.com/devmario/mc_ext_comm/blob/master/mc_ext_comm_logo.png?raw=true)
 # mc_ext_comm
 Minecraft extensional command. rcon, nodejs, nbt.
 
@@ -12,14 +13,14 @@ this node.js script page is for minecraft teleport more smart.
 - teleport at saved another player's key
 
 
-### install
+## install
 ```
 git submodule init
 git submodule update
 npm install
 ```
 
-### config
+## config
 minecraft server.properties
 ```
 enable-rcon=true
@@ -34,12 +35,12 @@ MCRCON_PASSWORD=RCON_PASSWORD
 MC_PATH=MINECRAFT_PATH
 ```
 
-### run
+## run
 ```
 node index.js
 ```
 
-### command
+## command
 ```
 @list
 @list userName
