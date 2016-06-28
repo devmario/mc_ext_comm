@@ -1,6 +1,17 @@
 # mc_ext_comm
 Minecraft extensional command. rcon, nodejs, nbt.
 
+this node.js script page is for minecraft teleport more smart.
+
+## feature
+- save current position with key
+- teleport at saved key
+- show key list
+- delete key
+- show another player's key list
+- teleport at saved another player's key
+
+
 ### install
 ```
 git submodule init
