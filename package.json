@@ -1,0 +1,20 @@
+{
+  "name": "mc_ext_comm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "jsonfile": "^2.3.1",
+    "mcnbt": "0.0.7",
+     "nibbit-nolong": "0.0.1",
+    "node-nbt": "^1.0.0",
+    "tail": "^1.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+	  "postinstall": "mkdir -p build && mkdir -p data && gcc -std=gnu11 -pedantic -Wall -Wextra -O2 -s -o build/mcrcon mcrcon/mcrcon.c",
+      "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
