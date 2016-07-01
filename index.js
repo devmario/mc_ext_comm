@@ -55,28 +55,25 @@ function readJsonExist(name) {
 	var fname = `data/${name}.json`;
 	var data = {name: name, positions:{}};
 	if(!fs.existsSync(fname)) fs.writeFileSync(fname, JSON.stringify(data));
-
 	data = jsonfile.readFileSync(fname);
 	return data;
 }
 
-comm[`${tk}help`] = comm[`${tk}?`] = function(data, args) {
+comm[`${tk}?`] = function(data, args) {
 	if(!data || !data.name) return;
-	var output = 'It is available commands.\n@?, @help, @list, @list user, @save key, @go key, @go user key, @delete key';
-	execRconOutput(data.name, output);
-	return data;
+	var output = 'It is available commands.\n@?, @ls, @ls user, @set key, @go key, @go user key, @del key';
+	return {data:data, output:output};
 };
 
-comm[`${tk}list`] = function(data, args) {
+comm[`${tk}ls`] = function(data, args) {
 	if(!data || !data.name) return;
-	var originalName = data.name;
 	if(args[1]) {
 		data = readJsonExist(args[1]);
 	}
 	var output = Object.keys(data.positions).sort().join(", ");
 	if(!args[1]) {
 		if(!output) {
-			output = "Not found positions.\nNeed '@save key' command at you want position.";
+			output = "Not found positions.\nNeed '@set key' command at you want position.";
 		} else {
 			output = "Your positions list.\nIf you want teleport, Just call '@go key' command.\n[" + output + "]";
 		}
@@ -87,13 +84,12 @@ comm[`${tk}list`] = function(data, args) {
 			output = `${args[1]}\'s positions List.\nIf you want teleport, Just call \'@go ${args[1]} key\' command.\n[` + output + "]";
 		}
 	}
-	execRconOutput(originalName, output);
-	return data;
+	return {data:data, output:output};
 };
 
-comm[`${tk}save`] = function(data, args) {
+comm[`${tk}set`] = function(data, args) {
 	if(!data || !data.name) return;
-	var output = 'Not found Key.(\'@save key\')';
+	var output = 'Not found Key.(\'@set key\')';
 	if(args[1]) {
 		var key = args[1];
 		execRcon('/save-all');
@@ -102,8 +98,7 @@ comm[`${tk}save`] = function(data, args) {
 		data.positions[args[1]] = pos;
 		output = `Saved \'${key}\'.\nSave completed at current position.(x:${pos.x}, y:${pos.y}, z:${pos.z})`;  
 	}
-	execRconOutput(data.name, output);
-	return data;
+	return {data:data, output:output};
 };
 
 comm[`${tk}go`] = function(data, args) {
@@ -130,30 +125,28 @@ comm[`${tk}go`] = function(data, args) {
 			}
 		} else {
 			if(name) {
-				output = `Not found Key from @list ${name}.(\'@go ${name} key\')`;
+				output = `Not found Key from @ls ${name}.(\'@go ${name} key\')`;
 			} else {
-				output = 'Not found Key from @list.(\'@go key\')';
+				output = 'Not found Key from @ls.(\'@go key\')';
 			}
 		}
 	}
-	execRconOutput(originalName, output);
-	return data;
+	return {data:data, output:output};
 };
 
-comm[`${tk}delete`] = function(data, args) {
+comm[`${tk}del`] = function(data, args) {
 	if(!data || !data.name) return;
-	var output = 'Not found Key.(\'@delete key\')';
+	var output = 'Not found Key.(\'@del key\')';
 	if(args[1]) {
 		var key = args[1];
 		if(!data.positions[key]) {
-			output = 'Not found Key from @list.(\'@delete key\')';
+			output = 'Not found Key from @ls.(\'@del key\')';
 		} else {
 			delete data.positions[key];
 			output = `Delete completed.(\'@delete ${key}\')`;
 		}
 	}
-	execRconOutput(data.name, output);
-	return data;
+	return {data:data, output:output};
 };
 
 tail.on("line", function(line) {
@@ -173,8 +166,9 @@ tail.on("line", function(line) {
 	if(!func) return;
 
 	var data = readJsonExist(name);
-	data = func(data, args);
-	jsonfile.writeFileSync(`data/${data.name}.json`, data);
+	var result = func(data, args);
+	jsonfile.writeFileSync(`data/${result.data.name}.json`, result.data);
+	execRconOutput(data.name, result.output);
 });
 
 tail.on("error", function(error) {
