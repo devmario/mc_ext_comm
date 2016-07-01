@@ -45,13 +45,12 @@ node index.js
 ```
 
 ## command
-```
-@list
-@list userName
-@save positionKey
+```bash
+@ls
+@ls userName
+@set positionKey
 @go positionKey
 @go userName positionKey
 @?
-@help
-@delete positionKey
+@del positionKey
 ```
